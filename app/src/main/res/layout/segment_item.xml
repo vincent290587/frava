@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    android:id="@+id/segment_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:paddingEnd="@dimen/activity_horizontal_margin"
+    android:paddingStart="@dimen/activity_horizontal_margin"
+    tools:ignore="ContentDescription">
+
+    <TextView
+        android:id="@+id/segment_name"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="112dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textSize="20sp"
+        tools:text="Route name" />
+
+    <TextView
+        android:id="@+id/segment_km"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="118dp"
+        android:layout_marginEnd="6dp"
+        android:textSize="12sp"
+        tools:text="120km" />
+
+</RelativeLayout>
