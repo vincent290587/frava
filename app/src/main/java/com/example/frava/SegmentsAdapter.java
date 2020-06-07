@@ -3,6 +3,7 @@ package com.example.frava;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,12 +23,14 @@ public class SegmentsAdapter extends RecyclerView.Adapter<SegmentsAdapter.ViewHo
         public final View view;
         public final TextView s_name;
         public final TextView s_length;
+        public final ProgressBar s_progress;
 
         public ViewHolder(@NonNull View view) {
             super(view);
             this.view = itemView;
             this.s_name = itemView.findViewById(R.id.segment_name);
             this.s_length = itemView.findViewById(R.id.segment_km);
+            this.s_progress = itemView.findViewById(R.id.progressBar);
         }
     }
 
@@ -43,6 +46,7 @@ public class SegmentsAdapter extends RecyclerView.Adapter<SegmentsAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         // TODO fill data per item knowing position
+        holder.s_progress.setVisibility(View.INVISIBLE);
         holder.s_name.setText(mDataset[position]);
     }
 
