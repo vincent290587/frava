@@ -40,7 +40,13 @@ public class HomeFragment extends Fragment {
     private StravaManager stravaViewModel;
 
     private void logText(String s) {
+        if (s == null) {
+            return;
+        }
         String old_text = homeViewModel.getText().getValue();
+        if (old_text == null) {
+            old_text = "";
+        }
         String new_text = s;
         new_text += "\n";
         new_text += old_text;

@@ -27,14 +27,12 @@ public class SegmentsAdapter extends RecyclerView.Adapter<SegmentsAdapter.ViewHo
         public final View view;
         public final TextView s_name;
         public final TextView s_length;
-        public final ProgressBar s_progress;
 
         public ViewHolder(@NonNull View view) {
             super(view);
             this.view = itemView;
             this.s_name = itemView.findViewById(R.id.segment_name);
             this.s_length = itemView.findViewById(R.id.segment_km);
-            this.s_progress = itemView.findViewById(R.id.progressBar);
         }
     }
 
@@ -49,10 +47,9 @@ public class SegmentsAdapter extends RecyclerView.Adapter<SegmentsAdapter.ViewHo
 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        // TODO fill data per item knowing position
-        holder.s_progress.setVisibility(View.INVISIBLE);
         holder.s_name.setText(mDataset.get(position).getName());
-        holder.s_length.setText(mDataset.get(position).getDistance().toString());
+        Integer dist = new Integer((int) (mDataset.get(position).getDistance()/1000.f));
+        holder.s_length.setText(dist.toString() + "km");
     }
 
     // Return the size of your dataset (invoked by the layout manager)

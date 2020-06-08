@@ -15,12 +15,12 @@
         android:id="@+id/segment_name"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:layout_marginStart="7dp"
-        android:layout_marginEnd="38dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginBottom="1dp"
         android:layout_toStartOf="@+id/segment_km"
-        android:layout_toEndOf="@+id/progressBar"
         android:ellipsize="end"
         android:singleLine="true"
         android:textSize="20sp"
@@ -36,20 +36,5 @@
         android:layout_marginEnd="6dp"
         android:textSize="12sp"
         tools:text="120km" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="23dp"
-        android:layout_height="28dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:indeterminate="false"
-        android:max="100"
-        android:progress="10"
-        android:progressTint="#F44336" />
 
 </RelativeLayout>
