@@ -6,21 +6,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Binder;
-import android.os.Build;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.swagger.client.ApiClient;
 import io.swagger.client.ApiException;
@@ -35,18 +32,20 @@ import io.swagger.client.model.Route;
 import io.swagger.client.model.StreamSet;
 import io.swagger.client.model.SummarySegment;
 import io.swagger.client.model.SummarySegmentEffort;
-import no.nordicsemi.android.ble.callback.profile.ProfileDataCallback;
 
 public class StravaQueries extends Service {
 
     private static final String TAG = "StravaQueries";
 
+    private String access_token;
+    private String refresh_token;
+
     private Context mContext;
 
     private List<SummarySegment> seg_sum_list;
 
-    MutableLiveData<List<Route>> p_routes_list;
-    MutableLiveData<List<ExtendedSummarySegment>> p_seg_list;
+    private MutableLiveData<List<Route>> m_routes_list;
+    private MutableLiveData<List<ExtendedSummarySegment>> m_seg_list;
 
     // Binder given to clients
     private final IBinder binder = new StravaQueries.LocalBinder();
@@ -56,7 +55,7 @@ public class StravaQueries extends Service {
      * runs in the same process as its clients, we don't need to deal with IPC.
      */
     public class LocalBinder extends Binder {
-        StravaQueries getService() {
+        public StravaQueries getService() {
             // Return this instance of BluetoothLeService so clients can call public methods
             return StravaQueries.this;
         }
@@ -71,50 +70,14 @@ public class StravaQueries extends Service {
     public StravaQueries() {
         super();
         seg_sum_list = null;
-        p_routes_list = new MutableLiveData<List<Route>>();
-        p_seg_list    = new MutableLiveData<List<ExtendedSummarySegment>>();
     }
 
-    public void subscribeRoutes(Observer<List<Route>> observer) {
-        p_routes_list.observeForever(observer);
+    public void setObservables(MutableLiveData<List<Route>> routes_list, MutableLiveData<List<ExtendedSummarySegment>> seg_list) {
+        this.m_seg_list = seg_list;
+        this.m_routes_list = routes_list;
     }
 
-    public LiveData<List<ExtendedSummarySegment>> getLiveData() {
-        return p_seg_list;
-    }
-
-    private void refreshList() {
-
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
-
-        String access_token = sharedPref.getString(getString(R.string.access_token), "");
-        String refresh_token = sharedPref.getString(getString(R.string.refresh_token), "");
-
-        Log.d(TAG, "onHandleIntent token=" + access_token);
-        Log.d(TAG, "onHandleIntent refresh=" + refresh_token);
-
-        ApiClient apiClient = Configuration.getDefaultApiClient();
-        apiClient.setAccessToken(access_token);
-        apiClient.setDebugging(false);
-
-        // Configure OAuth2 access token for authorization: strava_oauth
-        OAuth strava_oauth = (OAuth) apiClient.getAuthentication("strava_oauth");
-        strava_oauth.setAccessToken(access_token);
-
-        querySegments();
-        queryEfforts();
-        queryRoutes();
-    }
-
-    Thread thread = new Thread(new Runnable(){
-        @Override
-        public void run() {
-           refreshList();
-           return;
-        }
-    });
-
-    private void queryRoutes() {
+    private void queryRoutes(@NonNull MutableLiveData<List<Route>> p_routes_list) {
 
         Integer page = 1; // Integer | Page number. Defaults to 1.
         Integer perPage = 30; // Integer | Number of items per page. Defaults to 30.
@@ -185,7 +148,7 @@ public class StravaQueries extends Service {
         }
     }
 
-    private void queryEfforts() {
+    private void queryEfforts(@NonNull MutableLiveData<List<ExtendedSummarySegment>> p_seg_list) {
 
         List<ExtendedSummarySegment> tmp_result = new ArrayList<ExtendedSummarySegment>();
 
@@ -223,20 +186,69 @@ public class StravaQueries extends Service {
 
     }
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startid) {
-        if (mContext == null) {
+    private void refreshList() {
 
-            mContext = getApplicationContext();
-            thread.start();
+        Log.d(TAG, "onHandleIntent token=" + access_token);
+        Log.d(TAG, "onHandleIntent refresh=" + refresh_token);
+
+        ApiClient apiClient = Configuration.getDefaultApiClient();
+        apiClient.setAccessToken(access_token);
+        apiClient.setDebugging(false);
+
+        // Configure OAuth2 access token for authorization: strava_oauth
+        OAuth strava_oauth = (OAuth) apiClient.getAuthentication("strava_oauth");
+        strava_oauth.setAccessToken(access_token);
+
+        querySegments();
+        queryEfforts(m_seg_list);
+        queryRoutes(m_routes_list);
+    }
+
+    Thread thread = new Thread(new Runnable(){
+        @Override
+        public void run() {
+            refreshList();
+            return;
         }
+    });
+
+    public void refresh() {
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        access_token = sharedPref.getString(getString(R.string.access_token), "");
+        refresh_token = sharedPref.getString(getString(R.string.refresh_token), "");
+        int expires_at = sharedPref.getInt(getString(R.string.expires_at), 0);
+        long timestamp = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+
+        if (refresh_token == null || refresh_token.isEmpty() || expires_at == 0 || expires_at < timestamp) {
+
+            Log.i(TAG, "New tokens needed: " + refresh_token);
+
+        } else {
+
+            Log.i(TAG, "Query start: " + refresh_token);
+
+            if (mContext == null) {
+
+                mContext = getApplicationContext();
+                thread.start();
+            }
+        }
+
+    }
+
+//    @Override
+    public int onStartCommand(Intent intent, int flags, int startid) {
+        //refresh();
         return START_STICKY;
     }
 
+
     @Override
     public void onDestroy() {
-        mContext = null;
         thread.interrupt();
         super.onDestroy();
     }
+
 }

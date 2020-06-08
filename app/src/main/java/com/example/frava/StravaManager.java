@@ -1,50 +1,60 @@
 package com.example.frava;
 
+import android.content.ComponentName;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
 import java.util.List;
+
+import io.swagger.client.model.Route;
 
 public class StravaManager extends ViewModel {
 
     private static final String TAG = "StravaManager";
 
-    private FunctionCallback m_callback;
+    public MutableLiveData<List<Route>> m_routes_list = new MutableLiveData<>();
+    public MutableLiveData<List<ExtendedSummarySegment>> m_seg_list = new MutableLiveData<>();
 
-    public List<ExtendedSummarySegment> cur_list;
+    public MutableLiveData<StravaQueries> mBinder = new MutableLiveData<>();
 
     public StravaManager() {
         super();
     }
 
-    public void setCallback(FunctionCallback callback) {
-        m_callback = callback;
+    public void refresh() {
+
+        StravaQueries stravaQueries = mBinder.getValue();
+        if (stravaQueries != null) {
+            Log.d(TAG, "refresh");
+            stravaQueries.setObservables(m_routes_list, m_seg_list);
+            stravaQueries.refresh();
+        } else {
+            Log.d(TAG, "null binder");
+        }
     }
 
-    Observer<List<ExtendedSummarySegment>> observer = new Observer<List<ExtendedSummarySegment>>() {
+    /** Defines callbacks for service binding, passed to bindService() */
+    public ServiceConnection connectionStrava = new ServiceConnection() {
 
         @Override
-        public void onChanged(List<ExtendedSummarySegment> extendedSummarySegments) {
+        public void onServiceConnected(ComponentName className,
+                                       IBinder service) {
+            // We've bound to LocalService, cast the IBinder and get LocalService instance
+            StravaQueries.LocalBinder binder = (StravaQueries.LocalBinder) service;
+            mBinder.postValue(binder.getService());
+            Log.i(TAG, "Strava service started");
+        }
 
-            cur_list = extendedSummarySegments;
-            m_callback.onUpdated(extendedSummarySegments);
-            Log.i(TAG, "startObserving #" + extendedSummarySegments.size());
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            mBinder.postValue(null);
+            Log.i(TAG, "Strava service stopped");
         }
     };
-
-    public void startObserving(@NonNull StravaQueries queries) {
-
-        queries.getLiveData().observeForever(observer);
-    }
-
-    public void stopObserving(@NonNull StravaQueries queries) {
-
-        queries.getLiveData().removeObservers(null);
-    }
 
     @Override
     protected void onCleared() {

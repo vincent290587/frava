@@ -9,12 +9,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
+import io.swagger.client.model.Route;
+
 public class SegmentsAdapter extends RecyclerView.Adapter<SegmentsAdapter.ViewHolder>  {
 
-    private String[] mDataset;
+    private List<Route> mDataset;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public SegmentsAdapter(String[] myDataset) {
+    public SegmentsAdapter(List<Route> myDataset) {
         mDataset = myDataset;
     }
 
@@ -47,12 +51,16 @@ public class SegmentsAdapter extends RecyclerView.Adapter<SegmentsAdapter.ViewHo
 
         // TODO fill data per item knowing position
         holder.s_progress.setVisibility(View.INVISIBLE);
-        holder.s_name.setText(mDataset[position]);
+        holder.s_name.setText(mDataset.get(position).getName());
+        holder.s_length.setText(mDataset.get(position).getDistance().toString());
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        if (mDataset != null) {
+            return mDataset.size();
+        }
+        return 0;
     }
 }
