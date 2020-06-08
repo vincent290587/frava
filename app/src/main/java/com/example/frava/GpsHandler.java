@@ -18,6 +18,8 @@ import java.util.Date;
 import java.util.List;
 
 import io.swagger.client.model.LatLng;
+import io.swagger.client.model.PolylineMap;
+import io.swagger.client.model.Route;
 import no.nordicsemi.android.ble.data.Data;
 
 public class GpsHandler extends Service {
@@ -109,6 +111,16 @@ public class GpsHandler extends Service {
         }
 
         Log.e(TAG, "handleSegmentRequest: not found " + seg_id);
+    }
+
+    public void sendRoute(Route route) {
+
+        PolylineMap map = route.getMap();
+        String poly = map.getPolyline();
+        if (poly == null) {
+            poly = map.getSummaryPolyline();
+        }
+        // TODO
     }
 
     private void _sendSegment(ExtendedSummarySegment ext_seg, LeCallbacks interf) {

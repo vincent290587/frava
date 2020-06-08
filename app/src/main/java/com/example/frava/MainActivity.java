@@ -38,6 +38,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import io.swagger.client.model.Route;
 import no.nordicsemi.android.ble.callback.profile.ProfileDataCallback;
 import no.nordicsemi.android.ble.data.Data;
 
@@ -47,8 +48,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     public static final String TAG = "MainActivity";
 
     public static final int INTENT_OAUTH2_START = 1110;
-    public static final int INTENT_OAUTH2_DONE = 1111;/**
+    public static final int INTENT_OAUTH2_DONE = 1111;
 
+    /**
      * permissions request code
      */
     private final static int REQUEST_CODE_ASK_PERMISSIONS = 1;
@@ -86,6 +88,14 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
         // force creation here
         stravaViewModel = new ViewModelProvider(this).get(StravaManager.class);
+        stravaViewModel.m_route_to_send.observe(this, new Observer<Route>() {
+            @Override
+            public void onChanged(Route route) {
+                if (gps_handler != null) {
+                    gps_handler.sendRoute(route);
+                }
+            }
+        });
     }
 
     public void startOAuth() {

@@ -38,6 +38,8 @@ public class DashboardFragment extends Fragment {
 
     LayoutInflater m_inflater;
 
+    int m_last_position;
+
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
 
@@ -82,6 +84,8 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
 
+                m_last_position = position;
+
                 // inflate the layout of the popup window
                 View popupView = m_inflater.inflate(R.layout.route_popup, null);
 
@@ -97,6 +101,15 @@ public class DashboardFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         popupWindow.dismiss();
+                    }
+                });
+
+                Button button_send = popupView.findViewById(R.id.button_send);
+                button_send.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        stravaViewModel.prepareRoute(m_last_position);
                     }
                 });
 
