@@ -104,8 +104,10 @@ public class StravaQueries extends Service {
 
                 page += 1;
 
+                Log.i(TAG, "New routes: " + result.size());
+
                 if (MapTool.isDebugVersion()) {
-                    return;
+                    break;
                 }
 
             } while (result != null && result.size() > 0);
@@ -134,6 +136,8 @@ public class StravaQueries extends Service {
 
                 // add all that we found in our list
                 seg_sum_list.addAll(result);
+
+                Log.i(TAG, "New starred segments: " + result.size());
 
                 page += 1;
 

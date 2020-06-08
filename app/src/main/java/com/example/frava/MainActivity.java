@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             Manifest.permission.ACCESS_FINE_LOCATION,
     };
 
+    StravaManager stravaViewModel;
     BluetoothLeService ble_service;
     GpsHandler gps_handler;
     int is_started;
@@ -83,6 +84,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
+        // force creation here
+        stravaViewModel = new ViewModelProvider(this).get(StravaManager.class);
     }
 
     public void startOAuth() {

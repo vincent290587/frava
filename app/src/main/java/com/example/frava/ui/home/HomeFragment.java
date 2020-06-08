@@ -18,8 +18,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.frava.ExtendedSummarySegment;
 import com.example.frava.MainActivity;
 import com.example.frava.OAuthStarter;
 import com.example.frava.R;
@@ -27,6 +29,7 @@ import com.example.frava.StravaManager;
 import com.example.frava.StravaQueries;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class HomeFragment extends Fragment {
@@ -36,18 +39,26 @@ public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
     private StravaManager stravaViewModel;
 
+    private void logText(String s) {
+        String old_text = homeViewModel.getText().getValue();
+        String new_text = s;
+        new_text += "\n";
+        new_text += old_text;
+        homeViewModel.mText.postValue(new_text);
+    }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView");
 
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
-        stravaViewModel =
-                ViewModelProviders.of(this).get(StravaManager.class);
+        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+
+        stravaViewModel = new ViewModelProvider(getActivity()).get(StravaManager.class);
+        Log.i(TAG, "getActivity" + getActivity().toString());
 
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        final TextView textView = root.findViewById(R.id.text_dashboard);
+        final TextView textView = root.findViewById(R.id.text_home);
 
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -59,6 +70,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
+            }
+        });
+
+        stravaViewModel.m_seg_list.observe(getViewLifecycleOwner(), new Observer<List<ExtendedSummarySegment>>() {
+            @Override
+            public void onChanged(@Nullable List<ExtendedSummarySegment> segments) {
+                Log.i(TAG, "segments changed");
+                logText("Segments downloaded: " + segments.size());
             }
         });
 
@@ -73,9 +92,9 @@ public class HomeFragment extends Fragment {
         });
 
         // start the queries service
-//        Intent intent = new Intent(getActivity(), StravaQueries.class);
-//        getActivity().bindService(intent, stravaViewModel.connectionStrava, Context.BIND_AUTO_CREATE);
-//        getActivity().startService(intent);
+        Intent intent = new Intent(getActivity(), StravaQueries.class);
+        getActivity().bindService(intent, stravaViewModel.connectionStrava, Context.BIND_AUTO_CREATE);
+        getActivity().startService(intent);
 
         return root;
     }

@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,13 +24,15 @@ import com.example.frava.R;
 import com.example.frava.RecyclerItemClickListener;
 import com.example.frava.SegmentsAdapter;
 import com.example.frava.StravaManager;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.example.frava.ui.home.HomeFragment;
 
 import java.util.List;
 
 import io.swagger.client.model.Route;
 
 public class DashboardFragment extends Fragment {
+
+    private static final String TAG = "DashboardFragment";
 
     private StravaManager stravaViewModel;
 
@@ -40,9 +43,30 @@ public class DashboardFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        stravaViewModel =
-                ViewModelProviders.of(this).get(StravaManager.class);
         m_inflater = inflater;
+
+        stravaViewModel = new ViewModelProvider(getActivity()).get(StravaManager.class);
+        Log.i(TAG, "getActivity" + getActivity().toString());
+
+        stravaViewModel.m_routes_list.observe(getViewLifecycleOwner(), new Observer<List<Route>>() {
+            @Override
+            public void onChanged(@Nullable List<Route> route) {
+                Log.i(TAG, "Routes changed");
+                mAdapter.notifyDataSetChanged();
+            }
+        });
+
+        stravaViewModel.m_seg_list.observe(getViewLifecycleOwner(), new Observer<List<ExtendedSummarySegment>>() {
+            @Override
+            public void onChanged(@Nullable List<ExtendedSummarySegment> segments) {
+                if (segments != null) {
+                    Log.i(TAG, "segments changed" + segments.size());
+                } else {
+                    Log.i(TAG, "segments changed");
+                }
+            }
+        });
+
         View root = m_inflater.inflate(R.layout.fragment_dashboard, container, false);
 
         recyclerView = root.findViewById(R.id.segments_recycler);
@@ -85,19 +109,6 @@ public class DashboardFragment extends Fragment {
             }
         }));
 
-        stravaViewModel.m_routes_list.observe(getViewLifecycleOwner(), new Observer<List<Route>>() {
-            @Override
-            public void onChanged(@Nullable List<Route> route) {
-                mAdapter.notifyDataSetChanged();
-            }
-        });
-
-        stravaViewModel.m_seg_list.observe(getViewLifecycleOwner(), new Observer<List<ExtendedSummarySegment>>() {
-            @Override
-            public void onChanged(@Nullable List<ExtendedSummarySegment> route) {
-
-            }
-        });
         return root;
     }
 }

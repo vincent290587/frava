@@ -38,7 +38,8 @@ public class OAuthStarter extends AppCompatActivity {
     }
 
     private void logText(String s) {
-        final TextView textview = findViewById(R.id.text_dashboard);
+
+        final TextView textview = findViewById(R.id.text_home);
 
         if (textview != null) {
 
