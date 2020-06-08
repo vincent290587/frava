@@ -20,6 +20,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
 }
 
@@ -36,4 +40,9 @@ dependencies {
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'no.nordicsemi.android.support.v18:scanner:1.4.2'
+    implementation 'no.nordicsemi.android:ble:2.2.0'
+    implementation 'no.nordicsemi.android:ble-common:2.2.0'
+    implementation 'no.nordicsemi.android:ble-livedata:2.2.0'
+    implementation 'com.android.volley:volley:1.1.1'
 }
