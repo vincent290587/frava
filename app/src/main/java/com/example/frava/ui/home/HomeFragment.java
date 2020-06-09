@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
@@ -38,6 +39,9 @@ public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     private StravaManager stravaViewModel;
+
+    private StravaTask stravaTask;
+    private HomeFragment thisFragment;
 
     private void logText(String s) {
         if (s == null) {
@@ -97,10 +101,8 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        // start the queries service
-        Intent intent = new Intent(getActivity(), StravaQueries.class);
-        getActivity().bindService(intent, stravaViewModel.connectionStrava, Context.BIND_AUTO_CREATE);
-        getActivity().startService(intent);
+        stravaTask = new StravaTask();
+        thisFragment = this;
 
         return root;
     }
@@ -108,7 +110,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        getActivity().unbindService(stravaViewModel.connectionStrava);
     }
 
     private void refresh() {
@@ -129,7 +130,28 @@ public class HomeFragment extends Fragment {
             startActivity(intent2);
         } else {
 
-            stravaViewModel.refresh();
+            stravaTask.execute();
+        }
+    }
+
+    class StravaTask extends AsyncTask<String, Void, String> {
+
+        StravaQueries queries = new StravaQueries();
+
+        @Override
+        protected void onPreExecute() {
+            queries.setObservables(stravaViewModel.m_routes_list, stravaViewModel.m_seg_list);
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            queries.refresh(thisFragment);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            // empty
         }
     }
 }

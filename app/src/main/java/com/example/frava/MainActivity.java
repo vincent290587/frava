@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             @Override
             public void onChanged(Route route) {
                 if (gps_handler != null) {
-                    gps_handler.sendRoute(route);
+                    gps_handler.sendRoute(route, ble_service);
                 }
             }
         });

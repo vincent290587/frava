@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,7 +23,6 @@ import com.example.frava.R;
 import com.example.frava.RecyclerItemClickListener;
 import com.example.frava.SegmentsAdapter;
 import com.example.frava.StravaManager;
-import com.example.frava.ui.home.HomeFragment;
 
 import java.util.List;
 
@@ -62,7 +60,7 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onChanged(@Nullable List<ExtendedSummarySegment> segments) {
                 if (segments != null) {
-                    Log.i(TAG, "segments changed" + segments.size());
+                    Log.i(TAG, "segments changed: " + segments.size());
                 } else {
                     Log.i(TAG, "segments changed");
                 }

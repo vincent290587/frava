@@ -24,9 +24,9 @@ public class Utils {
      * @return true if Bluetooth is enabled, false otherwise.
      */
     public static boolean isBleEnabled() {
-//        final BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
-//        return adapter != null && adapter.isEnabled();
-        return false;
+        final BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+        return adapter != null && adapter.isEnabled();
+        // remove this: return false;
     }
 
     /**

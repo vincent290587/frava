@@ -56,10 +56,6 @@
             android:name=".BluetoothLeService"
             android:enabled="true"
             android:exported="true" />
-        <service
-            android:name=".StravaQueries"
-            android:enabled="true"
-            android:exported="true" />
     </application>
 
 </manifest>

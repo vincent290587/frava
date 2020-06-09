@@ -52,8 +52,10 @@ public class MapTool {
             }
             i5 += i12;
             LatLng latlng = new LatLng();
-            latlng.set(0, (float) ((float) (((double) i8) / 100000.0d)));
-            latlng.set(1, (float) ((float) (((double) i5) / 100000.0d)));
+            // lat
+            latlng.add((float) ((float) (((double) i8) / 100000.0d)));
+            // lon
+            latlng.add((float) ((float) (((double) i5) / 100000.0d)));
             arrayList.add(latlng);
             i4 = i8;
             i3 = i2;

@@ -1,5 +1,6 @@
 package com.example.frava;
 
+import android.app.Activity;
 import android.app.IntentService;
 import android.app.Service;
 import android.content.Context;
@@ -12,7 +13,9 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,7 +36,7 @@ import io.swagger.client.model.StreamSet;
 import io.swagger.client.model.SummarySegment;
 import io.swagger.client.model.SummarySegmentEffort;
 
-public class StravaQueries extends Service {
+public class StravaQueries {
 
     private static final String TAG = "StravaQueries";
 
@@ -47,28 +50,7 @@ public class StravaQueries extends Service {
     private MutableLiveData<List<Route>> m_routes_list;
     private MutableLiveData<List<ExtendedSummarySegment>> m_seg_list;
 
-    // Binder given to clients
-    private final IBinder binder = new StravaQueries.LocalBinder();
-
-    /**
-     * Class used for the client Binder.  Because we know this service always
-     * runs in the same process as its clients, we don't need to deal with IPC.
-     */
-    public class LocalBinder extends Binder {
-        public StravaQueries getService() {
-            // Return this instance of BluetoothLeService so clients can call public methods
-            return StravaQueries.this;
-        }
-    }
-
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return binder;
-    }
-
     public StravaQueries() {
-        super();
         seg_sum_list = null;
     }
 
@@ -95,12 +77,14 @@ public class StravaQueries extends Service {
                 return;
             }
 
-            List<Route> result = new ArrayList<>();
+            List<Route> result;
+            List<Route> tmp = new ArrayList<>();
             do {
                 RoutesApi apiInstance = new RoutesApi();
 
                 // add all that we found in our list
-                result.addAll(apiInstance.getRoutesByAthleteId(athlete_id, page, perPage));
+                result = apiInstance.getRoutesByAthleteId(athlete_id, page, perPage);
+                tmp.addAll(result);
 
                 page += 1;
 
@@ -112,7 +96,7 @@ public class StravaQueries extends Service {
 
             } while (result != null && result.size() > 0);
 
-            p_routes_list.postValue(result);
+            p_routes_list.postValue(tmp);
 
         } catch (ApiException e) {
             e.printStackTrace();
@@ -192,9 +176,6 @@ public class StravaQueries extends Service {
 
     private void refreshList() {
 
-        Log.d(TAG, "onHandleIntent token=" + access_token);
-        Log.d(TAG, "onHandleIntent refresh=" + refresh_token);
-
         ApiClient apiClient = Configuration.getDefaultApiClient();
         apiClient.setAccessToken(access_token);
         apiClient.setDebugging(false);
@@ -208,21 +189,13 @@ public class StravaQueries extends Service {
         queryRoutes(m_routes_list);
     }
 
-    Thread thread = new Thread(new Runnable(){
-        @Override
-        public void run() {
-            refreshList();
-            return;
-        }
-    });
+    public void refresh(Fragment fragment) {
 
-    public void refresh() {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(fragment.getContext());
 
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
-        access_token = sharedPref.getString(getString(R.string.access_token), "");
-        refresh_token = sharedPref.getString(getString(R.string.refresh_token), "");
-        int expires_at = sharedPref.getInt(getString(R.string.expires_at), 0);
+        access_token = sharedPref.getString(fragment.getString(R.string.access_token), "");
+        refresh_token = sharedPref.getString(fragment.getString(R.string.refresh_token), "");
+        int expires_at = sharedPref.getInt(fragment.getString(R.string.expires_at), 0);
         long timestamp = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 
         if (refresh_token == null || refresh_token.isEmpty() || expires_at == 0 || expires_at < timestamp) {
@@ -233,26 +206,9 @@ public class StravaQueries extends Service {
 
             Log.i(TAG, "Query start: " + refresh_token);
 
-            if (mContext == null) {
-
-                mContext = getApplicationContext();
-                thread.start();
-            }
+            refreshList();
         }
 
-    }
-
-//    @Override
-    public int onStartCommand(Intent intent, int flags, int startid) {
-        //refresh();
-        return START_STICKY;
-    }
-
-
-    @Override
-    public void onDestroy() {
-        thread.interrupt();
-        super.onDestroy();
     }
 
 }

@@ -151,6 +151,8 @@ public class GpsHandler extends Service {
                 wrap3.put(ext_route_bytes, i, i2);
                 l_data.add(wrap3.array());
 
+                Log.i(TAG, "sendRoute packets= " + l_data.size());
+
                 // send the data
                 if (interf != null) {
                     interf.onListDataSend(l_data);
