@@ -47,8 +47,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     public static final String TAG = "MainActivity";
 
+    public static final int SEGMENT_LIST_READY  = 999;
     public static final int INTENT_OAUTH2_START = 1110;
-    public static final int INTENT_OAUTH2_DONE = 1111;
+    public static final int INTENT_OAUTH2_DONE  = 1111;
 
     /**
      * permissions request code
@@ -93,6 +94,24 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             public void onChanged(Route route) {
                 if (gps_handler != null) {
                     gps_handler.sendRoute(route, ble_service);
+                }
+            }
+        });
+
+        // pass commands from fragment to main activity
+        stravaViewModel.m_command.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer command) {
+                if (gps_handler != null) {
+                    switch (command) {
+                        case SEGMENT_LIST_READY:
+                        {
+                            gps_handler.sendSegmentsListReady(
+                                    stravaViewModel.m_seg_list.getValue(), ble_service);
+                        } break;
+                        default:
+                            break;
+                    }
                 }
             }
         });

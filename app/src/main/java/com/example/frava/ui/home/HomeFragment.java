@@ -127,6 +127,16 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        // add GPS sync button
+        FloatingActionButton button_send = root.findViewById(R.id.gps_send_button);
+        button_send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "onClick");
+                stravaViewModel.m_command.postValue(MainActivity.SEGMENT_LIST_READY);
+            }
+        });
+
         stravaTask = new StravaTask();
         thisFragment = this;
 
