@@ -43,9 +43,8 @@ public class StravaQueries {
     private String access_token;
     private String refresh_token;
 
-    private Context mContext;
-
     private List<SummarySegment> seg_sum_list;
+    private MutableLiveData<Integer> nb_segs;
 
     private MutableLiveData<List<Route>> m_routes_list;
     private MutableLiveData<List<ExtendedSummarySegment>> m_seg_list;
@@ -54,7 +53,11 @@ public class StravaQueries {
         seg_sum_list = null;
     }
 
-    public void setObservables(MutableLiveData<List<Route>> routes_list, MutableLiveData<List<ExtendedSummarySegment>> seg_list) {
+    public void setObservables(MutableLiveData<Integer> nb_segs,
+                               MutableLiveData<List<Route>> routes_list,
+                               MutableLiveData<List<ExtendedSummarySegment>> seg_list) {
+
+        this.nb_segs = nb_segs;
         this.m_seg_list = seg_list;
         this.m_routes_list = routes_list;
     }
@@ -120,6 +123,8 @@ public class StravaQueries {
 
                 // add all that we found in our list
                 seg_sum_list.addAll(result);
+
+                nb_segs.postValue(seg_sum_list.size());
 
                 Log.i(TAG, "New starred segments: " + result.size());
 

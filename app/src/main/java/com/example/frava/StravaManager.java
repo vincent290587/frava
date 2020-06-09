@@ -13,6 +13,7 @@ public class StravaManager extends ViewModel {
 
     private static final String TAG = "StravaManager";
 
+    public MutableLiveData<Integer> m_nb_segs = new MutableLiveData<>();
     public MutableLiveData<Route> m_route_to_send = new MutableLiveData<>();
     public MutableLiveData<List<Route>> m_routes_list = new MutableLiveData<>();
     public MutableLiveData<List<ExtendedSummarySegment>> m_seg_list = new MutableLiveData<>();

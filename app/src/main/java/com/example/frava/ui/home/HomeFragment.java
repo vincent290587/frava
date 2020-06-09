@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,6 +34,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import io.swagger.client.model.Route;
+
 public class HomeFragment extends Fragment {
 
     private static final String TAG = "HomeFragment";
@@ -43,17 +46,19 @@ public class HomeFragment extends Fragment {
     private StravaTask stravaTask;
     private HomeFragment thisFragment;
 
+    private ProgressBar bar;
+
     private void logText(String s) {
         if (s == null) {
             return;
         }
-        String old_text = homeViewModel.getText().getValue();
-        if (old_text == null) {
-            old_text = "";
-        }
-        String new_text = s;
-        new_text += "\n";
-        new_text += old_text;
+//        String old_text = homeViewModel.getText().getValue();
+//        if (old_text == null) {
+//            old_text = "";
+//        }
+        String new_text = "  \n\n\n\n" + s;
+//        new_text += "\n";
+//        new_text += old_text;
         homeViewModel.mText.postValue(new_text);
     }
 
@@ -64,11 +69,13 @@ public class HomeFragment extends Fragment {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
         stravaViewModel = new ViewModelProvider(getActivity()).get(StravaManager.class);
-        Log.i(TAG, "getActivity" + getActivity().toString());
+        Log.d(TAG, "getActivity" + getActivity().toString());
 
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         final TextView textView = root.findViewById(R.id.text_home);
+
+        bar = root.findViewById(R.id.progressBar2);
 
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -80,6 +87,16 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
+            }
+        });
+
+        stravaViewModel.m_nb_segs.observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer nb_segments) {
+                Log.i(TAG, "segments changed");
+                logText("Getting starred segments...");
+                bar.setMax(200);
+                bar.setProgress(nb_segments);
             }
         });
 
@@ -87,7 +104,16 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(@Nullable List<ExtendedSummarySegment> segments) {
                 Log.i(TAG, "segments changed");
-                logText("Segments downloaded: " + segments.size());
+                logText("Getting efforts...");
+                bar.setMax(stravaViewModel.m_nb_segs.getValue());
+                bar.setProgress(segments.size());
+            }
+        });
+
+        stravaViewModel.m_routes_list.observe(getViewLifecycleOwner(), new Observer<List<Route>>() {
+            @Override
+            public void onChanged(List<Route> routes) {
+                logText("Getting routes...");
             }
         });
 
@@ -140,7 +166,10 @@ public class HomeFragment extends Fragment {
 
         @Override
         protected void onPreExecute() {
-            queries.setObservables(stravaViewModel.m_routes_list, stravaViewModel.m_seg_list);
+            queries.setObservables(
+                    stravaViewModel.m_nb_segs,
+                    stravaViewModel.m_routes_list,
+                    stravaViewModel.m_seg_list);
         }
 
         @Override
@@ -151,7 +180,10 @@ public class HomeFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            // empty
+
+            logText("All queries done");
+            bar.setProgress(150);
+            bar.setMax(150);
         }
     }
 }
