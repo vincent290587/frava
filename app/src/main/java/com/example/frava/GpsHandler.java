@@ -113,14 +113,52 @@ public class GpsHandler extends Service {
         Log.e(TAG, "handleSegmentRequest: not found " + seg_id);
     }
 
-    public void sendRoute(Route route) {
+    public void sendRoute(Route route, LeCallbacks interf) {
 
-        PolylineMap map = route.getMap();
-        String poly = map.getPolyline();
-        if (poly == null) {
-            poly = map.getSummaryPolyline();
+        List<byte[]> l_data = new ArrayList<>();
+
+        ExtendedRoute ext_route = new ExtendedRoute(route);
+
+        byte[] ext_route_bytes = ext_route.toByteBuffer();
+        ByteBuffer wrap = ByteBuffer.wrap(newPacket());
+        wrap.order(ByteOrder.LITTLE_ENDIAN);
+
+        wrap.put(OutgoingCommands.RouteFileUploadStart.byteValue());
+        wrap.putLong(route.getId());
+
+        short s = ext_route.size;
+        wrap.putInt(s);
+
+        // add to list
+        l_data.add(wrap.array());
+
+        int i = 0;
+        while (true) {
+            int i2 = s - i;
+            if (i2 > 19) {
+                ByteBuffer wrap2 = ByteBuffer.wrap(newPacket());
+                wrap2.order(ByteOrder.LITTLE_ENDIAN);
+
+                wrap2.put(OutgoingCommands.RouteFileUploadData.byteValue());
+                wrap2.put(ext_route_bytes, i, 19);
+                l_data.add(wrap2.array());
+                i += 19;
+            } else {
+                ByteBuffer wrap3 = ByteBuffer.wrap(newPacket());
+                wrap3.order(ByteOrder.LITTLE_ENDIAN);
+
+                wrap3.put(OutgoingCommands.RouteFileUploadEnd.byteValue());
+                wrap3.put(ext_route_bytes, i, i2);
+                l_data.add(wrap3.array());
+
+                // send the data
+                if (interf != null) {
+                    interf.onListDataSend(l_data);
+                }
+                return;
+            }
         }
-        // TODO
+
     }
 
     private void _sendSegment(ExtendedSummarySegment ext_seg, LeCallbacks interf) {
@@ -320,7 +358,11 @@ public class GpsHandler extends Service {
         MapFileEnd(49),
         MapFileError(50),
         MapFileListRequest(51),
-        MapFileDelete(52);
+        MapFileDelete(52),
+        // User
+        RouteFileUploadStart(53),
+        RouteFileUploadData(54),
+        RouteFileUploadEnd(55);
 
         public int value;
 

@@ -4,11 +4,63 @@ package com.example.frava;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
 import io.swagger.client.model.LatLng;
 
 public class MapTool {
+
+    public static List<LatLng> decodePolyline(String str) {
+        int i;
+        int i2;
+        ArrayList arrayList = new ArrayList();
+        int length = str.length();
+        int i3 = 0;
+        int i4 = 0;
+        int i5 = 0;
+        while (i3 < length) {
+            int i6 = 0;
+            int i7 = 0;
+            while (true) {
+                i = i3 + 1;
+                int charAt = str.charAt(i3) - '?';
+                i6 |= (charAt & 31) << i7;
+                i7 += 5;
+                if (charAt < 32) {
+                    break;
+                }
+                i3 = i;
+            }
+            int i8 = ((i6 & 1) != 0 ? ~(i6 >> 1) : i6 >> 1) + i4;
+            int i9 = 0;
+            int i10 = 0;
+            while (true) {
+                i2 = i + 1;
+                int charAt2 = str.charAt(i) - '?';
+                i9 |= (charAt2 & 31) << i10;
+                i10 += 5;
+                if (charAt2 < 32) {
+                    break;
+                }
+                i = i2;
+            }
+            int i11 = i9 & 1;
+            int i12 = i9 >> 1;
+            if (i11 != 0) {
+                i12 = ~i12;
+            }
+            i5 += i12;
+            LatLng latlng = new LatLng();
+            latlng.set(0, (float) ((float) (((double) i8) / 100000.0d)));
+            latlng.set(1, (float) ((float) (((double) i5) / 100000.0d)));
+            arrayList.add(latlng);
+            i4 = i8;
+            i3 = i2;
+        }
+        return arrayList;
+    }
+
 
     public static class PolylineEncoder {
         /* access modifiers changed from: private */
