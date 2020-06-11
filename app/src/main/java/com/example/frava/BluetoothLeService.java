@@ -37,6 +37,7 @@ public class BluetoothLeService extends Service implements LeCallbacks {
         if (state.isConnected()) {
             stopScan();
         } else {
+            device = null;
             startScan();
         }
     };
@@ -113,9 +114,7 @@ public class BluetoothLeService extends Service implements LeCallbacks {
 
         Log.d(TAG, "onPositiveResult");
 
-        if (isConnected()) {
-            stopScan();
-        } else if (_device != null && isVincentDevice(_device)) {
+        if (_device != null && isVincentDevice(_device)) {
             this.connect(_device);
         }
     }

@@ -90,7 +90,6 @@ public class NusBleManager extends ObservableBleManager {
                     .done(device -> log(Log.INFO, "Target initialized"))
                     .enqueue();
 
-
             setNotificationCallback(txCharacteristic)
                     .with((device, data) -> {
                         //final String text = data.getStringValue(0);
