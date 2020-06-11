@@ -7,12 +7,15 @@ import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 
 import java.util.List;
 import java.util.UUID;
 
 import no.nordicsemi.android.ble.PhyRequest;
 import no.nordicsemi.android.ble.WriteRequest;
+import no.nordicsemi.android.ble.livedata.state.ConnectionState;
 import no.nordicsemi.android.ble.callback.profile.ProfileDataCallback;
 import no.nordicsemi.android.ble.livedata.ObservableBleManager;
 
@@ -37,6 +40,22 @@ public class NusBleManager extends ObservableBleManager {
 
     public void setCallbacks(ProfileDataCallback callbacks) {
         mCallbacks = callbacks;
+    }
+
+    public void observeConnection(LifecycleOwner owner, Observer<ConnectionState> observer) {
+
+        if (owner != null) {
+
+            getState().observe(owner, observer);
+        } else {
+
+            getState().observeForever(observer);
+        }
+    }
+
+    public void removeObserver(Observer<ConnectionState> observer) {
+
+        getState().removeObserver(observer);
     }
 
     @NonNull
@@ -82,10 +101,6 @@ public class NusBleManager extends ObservableBleManager {
                     });
             //requestMtu(180).enqueue();
             //enableNotifications(txCharacteristic).enqueue();
-        }
-
-        public void onConnectionUpdated() {
-
         }
 
         // This method will be called when the device is connected and services are discovered.
@@ -135,10 +150,6 @@ public class NusBleManager extends ObservableBleManager {
             // Device disconnected. Release your references here.
             rxCharacteristic = null;
             txCharacteristic = null;
-        }
-
-        public void onClientConnectionState() {
-
         }
     }
 

@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,6 +36,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.swagger.client.model.Route;
+import no.nordicsemi.android.ble.livedata.state.ConnectionState;
 
 public class HomeFragment extends Fragment {
 
@@ -47,6 +49,7 @@ public class HomeFragment extends Fragment {
     private HomeFragment thisFragment;
 
     private ProgressBar bar;
+    private FloatingActionButton button_send;
 
     private void logText(String s) {
         if (s == null) {
@@ -61,6 +64,20 @@ public class HomeFragment extends Fragment {
 //        new_text += old_text;
         homeViewModel.mText.postValue(new_text);
     }
+
+    private final Observer<Boolean> conn_obs = new Observer<Boolean>() {
+        @Override
+        public void onChanged(Boolean is_conn) {
+            Log.d(TAG, "onChanged connection state");
+            if (is_conn) {
+                button_send.setVisibility(View.VISIBLE);
+                Toast.makeText(getContext(), "Connected", Toast.LENGTH_SHORT);
+            } else {
+                button_send.setVisibility(View.INVISIBLE);
+                Toast.makeText(getContext(), "Disconnected", Toast.LENGTH_SHORT);
+            }
+        }
+    };
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -117,6 +134,8 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        stravaViewModel.m_conn.observe(getViewLifecycleOwner(), conn_obs);
+
         // add strava sync button
         FloatingActionButton button_sync = root.findViewById(R.id.strava_sync_button);
         button_sync.setOnClickListener(new View.OnClickListener() {
@@ -128,7 +147,7 @@ public class HomeFragment extends Fragment {
         });
 
         // add GPS sync button
-        FloatingActionButton button_send = root.findViewById(R.id.gps_send_button);
+        button_send = root.findViewById(R.id.gps_send_button);
         button_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -25,6 +25,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -72,12 +74,14 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     GpsHandler gps_handler;
     int is_started;
 
+    BottomNavigationView navView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
@@ -202,6 +206,11 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     @Override
     public void onDestroy() {
         super.onDestroy();
+
+        if (ble_service != null) {
+            ble_service.removeObserver(stravaViewModel.m_conn_state_obs);
+        }
+
         if (Utils.isBleEnabled() == true) {
             unbindService(connectionBle);
         }
@@ -225,6 +234,12 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     protected void onRestart() {
         super.onRestart();
         Log.d(TAG, "onRestart");
+        if (ble_service == null) {
+            // Bind to LocalService
+            Intent intent = new Intent(this, BluetoothLeService.class);
+            bindService(intent, connectionBle, Context.BIND_AUTO_CREATE);
+            startService(intent);
+        }
     }
 
     @Override
@@ -321,6 +336,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             BluetoothLeService.LocalBinder binder = (BluetoothLeService.LocalBinder) service;
             ble_service = binder.getService();
             ble_service.registerCallbacks(bleCallbacks);
+            ble_service.registerObserver(null, stravaViewModel.m_conn_state_obs);
         }
 
         @Override

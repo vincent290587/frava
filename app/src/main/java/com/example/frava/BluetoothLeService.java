@@ -2,6 +2,7 @@ package com.example.frava;
 
 import android.app.Service;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothProfile;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
@@ -9,9 +10,12 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 
 import java.util.List;
 
+import no.nordicsemi.android.ble.livedata.state.ConnectionState;
 import no.nordicsemi.android.ble.callback.profile.ProfileDataCallback;
 import no.nordicsemi.android.support.v18.scanner.BluetoothLeScannerCompat;
 import no.nordicsemi.android.support.v18.scanner.ScanResult;
@@ -26,6 +30,16 @@ public class BluetoothLeService extends Service implements LeCallbacks {
     private ScannerStateLiveData scannerStateLiveData;
     private DevicesLiveData devicesLiveData;
     private ProfileDataCallback mCallbacks;
+
+    private final Observer<ConnectionState> conn_obs = state -> {
+        // TODO something here
+        Log.d(TAG, "onChanged connection state " + state.toString());
+        if (state.isConnected()) {
+            stopScan();
+        } else {
+            startScan();
+        }
+    };
 
     // Binder given to clients
     private final IBinder binder = new LocalBinder();
@@ -51,6 +65,16 @@ public class BluetoothLeService extends Service implements LeCallbacks {
         bleManager.setCallbacks(mCallbacks);
     }
 
+    public void registerObserver(LifecycleOwner owner, Observer<ConnectionState> observer) {
+
+        bleManager.observeConnection(owner, observer);
+    }
+
+    public void removeObserver(Observer<ConnectionState> observer) {
+
+        bleManager.removeObserver(observer);
+    }
+
     @Override
     public void onCreate() {
         // Code to execute when the service is first created
@@ -59,6 +83,8 @@ public class BluetoothLeService extends Service implements LeCallbacks {
         scannerStateLiveData = new ScannerStateLiveData(Utils.isBleEnabled(),
                 Utils.isLocationEnabled(this));
         devicesLiveData = new DevicesLiveData(true, true);
+
+        bleManager.getState().observeForever(conn_obs);
     }
 
     @Override
@@ -216,7 +242,6 @@ public class BluetoothLeService extends Service implements LeCallbacks {
     private void disconnect() {
         device = null;
         bleManager.disconnect().enqueue();
-        startScan();
 
         Toast.makeText(this, "BLE Disconnected", Toast.LENGTH_SHORT);
     }
