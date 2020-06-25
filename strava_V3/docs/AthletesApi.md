@@ -132,7 +132,7 @@ OAuth strava_oauth = (OAuth) defaultClient.getAuthentication("strava_oauth");
 strava_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
 AthletesApi apiInstance = new AthletesApi();
-Integer id = 56; // Integer | The identifier of the athlete. Must match the authenticated athlete.
+Long id = 789L; // Long | The identifier of the athlete. Must match the authenticated athlete.
 try {
     ActivityStats result = apiInstance.getStats(id);
     System.out.println(result);
@@ -146,7 +146,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **Integer**| The identifier of the athlete. Must match the authenticated athlete. |
+ **id** | **Long**| The identifier of the athlete. Must match the authenticated athlete. |
 
 ### Return type
 

@@ -32,7 +32,7 @@ OAuth strava_oauth = (OAuth) defaultClient.getAuthentication("strava_oauth");
 strava_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
 RunningRacesApi apiInstance = new RunningRacesApi();
-Integer id = 56; // Integer | The identifier of the running race.
+Long id = 789L; // Long | The identifier of the running race.
 try {
     RunningRace result = apiInstance.getRunningRaceById(id);
     System.out.println(result);
@@ -46,7 +46,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **Integer**| The identifier of the running race. |
+ **id** | **Long**| The identifier of the running race. |
 
 ### Return type
 

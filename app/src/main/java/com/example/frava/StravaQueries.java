@@ -72,7 +72,7 @@ public class StravaQueries {
 
             AthletesApi ath_api = new AthletesApi();
             DetailedAthlete athlete = ath_api.getLoggedInAthlete();
-            int athlete_id = 0;
+            Long athlete_id;
             if (athlete != null) {
                 athlete_id = athlete.getId();
             } else {
@@ -89,9 +89,9 @@ public class StravaQueries {
                 result = apiInstance.getRoutesByAthleteId(athlete_id, page, perPage);
                 tmp.addAll(result);
 
-                page += 1;
+                Log.i(TAG, "New routes: " + result.size() + " page " + page);
 
-                Log.i(TAG, "New routes: " + result.size());
+                page += 1;
 
                 if (MapTool.isDebugVersion()) {
                     break;
@@ -189,9 +189,9 @@ public class StravaQueries {
         OAuth strava_oauth = (OAuth) apiClient.getAuthentication("strava_oauth");
         strava_oauth.setAccessToken(access_token);
 
+        queryRoutes(m_routes_list);
         querySegments();
         queryEfforts(m_seg_list);
-        queryRoutes(m_routes_list);
     }
 
     public void refresh(Fragment fragment) {

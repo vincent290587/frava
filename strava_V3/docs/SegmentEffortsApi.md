@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 List Segment Efforts
 
-Returns a set of the authenticated athlete&#39;s segment efforts for a given segment.
+Returns a set of the authenticated athlete&#39;s segment efforts for a given segment.  Requires subscription.
 
 ### Example
 ```java

@@ -34,7 +34,7 @@ OAuth strava_oauth = (OAuth) defaultClient.getAuthentication("strava_oauth");
 strava_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
 RoutesApi apiInstance = new RoutesApi();
-Integer id = 56; // Integer | The identifier of the route.
+Long id = 789L; // Long | The identifier of the route.
 try {
     apiInstance.getRouteAsGPX(id);
 } catch (ApiException e) {
@@ -47,7 +47,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **Integer**| The identifier of the route. |
+ **id** | **Long**| The identifier of the route. |
 
 ### Return type
 
@@ -86,7 +86,7 @@ OAuth strava_oauth = (OAuth) defaultClient.getAuthentication("strava_oauth");
 strava_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
 RoutesApi apiInstance = new RoutesApi();
-Integer id = 56; // Integer | The identifier of the route.
+Long id = 789L; // Long | The identifier of the route.
 try {
     apiInstance.getRouteAsTCX(id);
 } catch (ApiException e) {
@@ -99,7 +99,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **Integer**| The identifier of the route. |
+ **id** | **Long**| The identifier of the route. |
 
 ### Return type
 
@@ -138,7 +138,7 @@ OAuth strava_oauth = (OAuth) defaultClient.getAuthentication("strava_oauth");
 strava_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
 RoutesApi apiInstance = new RoutesApi();
-Integer id = 56; // Integer | The identifier of the route.
+Long id = 789L; // Long | The identifier of the route.
 try {
     Route result = apiInstance.getRouteById(id);
     System.out.println(result);
@@ -152,7 +152,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **Integer**| The identifier of the route. |
+ **id** | **Long**| The identifier of the route. |
 
 ### Return type
 
@@ -191,7 +191,7 @@ OAuth strava_oauth = (OAuth) defaultClient.getAuthentication("strava_oauth");
 strava_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
 RoutesApi apiInstance = new RoutesApi();
-Integer id = 56; // Integer | The identifier of the athlete.
+Long id = 789L; // Long | The identifier of the athlete.
 Integer page = 56; // Integer | Page number. Defaults to 1.
 Integer perPage = 30; // Integer | Number of items per page. Defaults to 30.
 try {
@@ -207,7 +207,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **Integer**| The identifier of the athlete. |
+ **id** | **Long**| The identifier of the athlete. |
  **page** | **Integer**| Page number. Defaults to 1. | [optional]
  **perPage** | **Integer**| Number of items per page. Defaults to 30. | [optional] [default to 30]
 

@@ -386,7 +386,7 @@ OAuth strava_oauth = (OAuth) defaultClient.getAuthentication("strava_oauth");
 strava_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
 ActivitiesApi apiInstance = new ActivitiesApi();
-Integer id = 56; // Integer | The identifier of the activity.
+Long id = 789L; // Long | The identifier of the activity.
 try {
     List<ActivityZone> result = apiInstance.getZonesByActivityId(id);
     System.out.println(result);
@@ -400,7 +400,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **Integer**| The identifier of the activity. |
+ **id** | **Long**| The identifier of the activity. |
 
 ### Return type
 

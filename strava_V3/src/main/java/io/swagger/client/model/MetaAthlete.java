@@ -27,12 +27,12 @@ import java.io.IOException;
 /**
  * MetaAthlete
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-31T19:43:52.141+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-06-25T14:36:57.813+02:00")
 public class MetaAthlete {
   @SerializedName("id")
-  private Integer id = null;
+  private Long id = null;
 
-  public MetaAthlete id(Integer id) {
+  public MetaAthlete id(Long id) {
     this.id = id;
     return this;
   }
@@ -42,11 +42,11 @@ public class MetaAthlete {
    * @return id
   **/
   @ApiModelProperty(value = "The unique identifier of the athlete")
-  public Integer getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(Long id) {
     this.id = id;
   }
 

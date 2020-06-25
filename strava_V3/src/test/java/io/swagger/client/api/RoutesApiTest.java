@@ -43,7 +43,7 @@ public class RoutesApiTest {
      */
     @Test
     public void getRouteAsGPXTest() throws ApiException {
-        Integer id = null;
+        Long id = null;
         api.getRouteAsGPX(id);
 
         // TODO: test validations
@@ -59,7 +59,7 @@ public class RoutesApiTest {
      */
     @Test
     public void getRouteAsTCXTest() throws ApiException {
-        Integer id = null;
+        Long id = null;
         api.getRouteAsTCX(id);
 
         // TODO: test validations
@@ -75,7 +75,7 @@ public class RoutesApiTest {
      */
     @Test
     public void getRouteByIdTest() throws ApiException {
-        Integer id = null;
+        Long id = null;
         Route response = api.getRouteById(id);
 
         // TODO: test validations
@@ -91,7 +91,7 @@ public class RoutesApiTest {
      */
     @Test
     public void getRoutesByAthleteIdTest() throws ApiException {
-        Integer id = null;
+        Long id = null;
         Integer page = null;
         Integer perPage = null;
         List<Route> response = api.getRoutesByAthleteId(id, page, perPage);

@@ -30,10 +30,10 @@ import org.threeten.bp.OffsetDateTime;
 /**
  * RunningRace
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-31T19:43:52.141+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-06-25T14:36:57.813+02:00")
 public class RunningRace {
   @SerializedName("id")
-  private Integer id = null;
+  private Long id = null;
 
   @SerializedName("name")
   private String name = null;
@@ -57,7 +57,7 @@ public class RunningRace {
   private String country = null;
 
   @SerializedName("route_ids")
-  private List<Integer> routeIds = null;
+  private List<Long> routeIds = null;
 
   /**
    * The unit system in which the race should be displayed.
@@ -115,7 +115,7 @@ public class RunningRace {
   @SerializedName("website_url")
   private String websiteUrl = null;
 
-  public RunningRace id(Integer id) {
+  public RunningRace id(Long id) {
     this.id = id;
     return this;
   }
@@ -125,11 +125,11 @@ public class RunningRace {
    * @return id
   **/
   @ApiModelProperty(value = "The unique identifier of this race.")
-  public Integer getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
@@ -259,14 +259,14 @@ public class RunningRace {
     this.country = country;
   }
 
-  public RunningRace routeIds(List<Integer> routeIds) {
+  public RunningRace routeIds(List<Long> routeIds) {
     this.routeIds = routeIds;
     return this;
   }
 
-  public RunningRace addRouteIdsItem(Integer routeIdsItem) {
+  public RunningRace addRouteIdsItem(Long routeIdsItem) {
     if (this.routeIds == null) {
-      this.routeIds = new ArrayList<Integer>();
+      this.routeIds = new ArrayList<Long>();
     }
     this.routeIds.add(routeIdsItem);
     return this;
@@ -277,11 +277,11 @@ public class RunningRace {
    * @return routeIds
   **/
   @ApiModelProperty(value = "The set of routes that cover this race's course.")
-  public List<Integer> getRouteIds() {
+  public List<Long> getRouteIds() {
     return routeIds;
   }
 
-  public void setRouteIds(List<Integer> routeIds) {
+  public void setRouteIds(List<Long> routeIds) {
     this.routeIds = routeIds;
   }
 

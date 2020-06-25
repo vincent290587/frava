@@ -1,5 +1,6 @@
 /*
  * Strava API v3
+ * The [Swagger Playground](https://developers.strava.com/playground) is the easiest way to familiarize yourself with the Strava API by submitting HTTP requests and observing the responses before you write any client code. It will show what a response will look like with different endpoints depending on the authorization scope you receive from your athletes. To use the Playground, go to https://www.strava.com/settings/api and change your “Authorization Callback Domain” to developers.strava.com. Please note, we only support Swagger 2.0. There is a known issue where you can only select one scope at a time. For more information, please check the section “client code” at https://developers.strava.com/docs.
  *
  * OpenAPI spec version: 3.0.0
  * 
@@ -62,7 +63,7 @@ public class RoutesApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call getRouteAsGPXCall(Integer id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call getRouteAsGPXCall(Long id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -105,7 +106,7 @@ public class RoutesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getRouteAsGPXValidateBeforeCall(Integer id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call getRouteAsGPXValidateBeforeCall(Long id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
         // verify the required parameter 'id' is set
         if (id == null) {
@@ -124,7 +125,7 @@ public class RoutesApi {
      * @param id The identifier of the route. (required)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public void getRouteAsGPX(Integer id) throws ApiException {
+    public void getRouteAsGPX(Long id) throws ApiException {
         getRouteAsGPXWithHttpInfo(id);
     }
 
@@ -135,7 +136,7 @@ public class RoutesApi {
      * @return ApiResponse&lt;Void&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Void> getRouteAsGPXWithHttpInfo(Integer id) throws ApiException {
+    public ApiResponse<Void> getRouteAsGPXWithHttpInfo(Long id) throws ApiException {
         com.squareup.okhttp.Call call = getRouteAsGPXValidateBeforeCall(id, null, null);
         return apiClient.execute(call);
     }
@@ -148,7 +149,7 @@ public class RoutesApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getRouteAsGPXAsync(Integer id, final ApiCallback<Void> callback) throws ApiException {
+    public com.squareup.okhttp.Call getRouteAsGPXAsync(Long id, final ApiCallback<Void> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -181,7 +182,7 @@ public class RoutesApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call getRouteAsTCXCall(Integer id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call getRouteAsTCXCall(Long id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -224,7 +225,7 @@ public class RoutesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getRouteAsTCXValidateBeforeCall(Integer id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call getRouteAsTCXValidateBeforeCall(Long id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
         // verify the required parameter 'id' is set
         if (id == null) {
@@ -243,7 +244,7 @@ public class RoutesApi {
      * @param id The identifier of the route. (required)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public void getRouteAsTCX(Integer id) throws ApiException {
+    public void getRouteAsTCX(Long id) throws ApiException {
         getRouteAsTCXWithHttpInfo(id);
     }
 
@@ -254,7 +255,7 @@ public class RoutesApi {
      * @return ApiResponse&lt;Void&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Void> getRouteAsTCXWithHttpInfo(Integer id) throws ApiException {
+    public ApiResponse<Void> getRouteAsTCXWithHttpInfo(Long id) throws ApiException {
         com.squareup.okhttp.Call call = getRouteAsTCXValidateBeforeCall(id, null, null);
         return apiClient.execute(call);
     }
@@ -267,7 +268,7 @@ public class RoutesApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getRouteAsTCXAsync(Integer id, final ApiCallback<Void> callback) throws ApiException {
+    public com.squareup.okhttp.Call getRouteAsTCXAsync(Long id, final ApiCallback<Void> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -300,7 +301,7 @@ public class RoutesApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call getRouteByIdCall(Integer id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call getRouteByIdCall(Long id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -343,7 +344,7 @@ public class RoutesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getRouteByIdValidateBeforeCall(Integer id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call getRouteByIdValidateBeforeCall(Long id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
         // verify the required parameter 'id' is set
         if (id == null) {
@@ -363,7 +364,7 @@ public class RoutesApi {
      * @return Route
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public Route getRouteById(Integer id) throws ApiException {
+    public Route getRouteById(Long id) throws ApiException {
         ApiResponse<Route> resp = getRouteByIdWithHttpInfo(id);
         return resp.getData();
     }
@@ -375,7 +376,7 @@ public class RoutesApi {
      * @return ApiResponse&lt;Route&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Route> getRouteByIdWithHttpInfo(Integer id) throws ApiException {
+    public ApiResponse<Route> getRouteByIdWithHttpInfo(Long id) throws ApiException {
         com.squareup.okhttp.Call call = getRouteByIdValidateBeforeCall(id, null, null);
         Type localVarReturnType = new TypeToken<Route>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -389,7 +390,7 @@ public class RoutesApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getRouteByIdAsync(Integer id, final ApiCallback<Route> callback) throws ApiException {
+    public com.squareup.okhttp.Call getRouteByIdAsync(Long id, final ApiCallback<Route> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -425,7 +426,7 @@ public class RoutesApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call getRoutesByAthleteIdCall(Integer id, Integer page, Integer perPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call getRoutesByAthleteIdCall(Long id, Integer page, Integer perPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -472,7 +473,7 @@ public class RoutesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getRoutesByAthleteIdValidateBeforeCall(Integer id, Integer page, Integer perPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call getRoutesByAthleteIdValidateBeforeCall(Long id, Integer page, Integer perPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
         // verify the required parameter 'id' is set
         if (id == null) {
@@ -494,7 +495,7 @@ public class RoutesApi {
      * @return List&lt;Route&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public List<Route> getRoutesByAthleteId(Integer id, Integer page, Integer perPage) throws ApiException {
+    public List<Route> getRoutesByAthleteId(Long id, Integer page, Integer perPage) throws ApiException {
         ApiResponse<List<Route>> resp = getRoutesByAthleteIdWithHttpInfo(id, page, perPage);
         return resp.getData();
     }
@@ -508,7 +509,7 @@ public class RoutesApi {
      * @return ApiResponse&lt;List&lt;Route&gt;&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<List<Route>> getRoutesByAthleteIdWithHttpInfo(Integer id, Integer page, Integer perPage) throws ApiException {
+    public ApiResponse<List<Route>> getRoutesByAthleteIdWithHttpInfo(Long id, Integer page, Integer perPage) throws ApiException {
         com.squareup.okhttp.Call call = getRoutesByAthleteIdValidateBeforeCall(id, page, perPage, null, null);
         Type localVarReturnType = new TypeToken<List<Route>>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -524,7 +525,7 @@ public class RoutesApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getRoutesByAthleteIdAsync(Integer id, Integer page, Integer perPage, final ApiCallback<List<Route>> callback) throws ApiException {
+    public com.squareup.okhttp.Call getRoutesByAthleteIdAsync(Long id, Integer page, Integer perPage, final ApiCallback<List<Route>> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;

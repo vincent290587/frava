@@ -161,7 +161,7 @@ public class ActivitiesApiTest {
      */
     @Test
     public void getZonesByActivityIdTest() throws ApiException {
-        Integer id = null;
+        Long id = null;
         List<ActivityZone> response = api.getZonesByActivityId(id);
 
         // TODO: test validations

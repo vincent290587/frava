@@ -35,7 +35,7 @@ OAuth strava_oauth = (OAuth) defaultClient.getAuthentication("strava_oauth");
 strava_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
 ClubsApi apiInstance = new ClubsApi();
-Integer id = 56; // Integer | The identifier of the club.
+Long id = 789L; // Long | The identifier of the club.
 Integer page = 56; // Integer | Page number. Defaults to 1.
 Integer perPage = 30; // Integer | Number of items per page. Defaults to 30.
 try {
@@ -51,7 +51,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **Integer**| The identifier of the club. |
+ **id** | **Long**| The identifier of the club. |
  **page** | **Integer**| Page number. Defaults to 1. | [optional]
  **perPage** | **Integer**| Number of items per page. Defaults to 30. | [optional] [default to 30]
 
@@ -92,7 +92,7 @@ OAuth strava_oauth = (OAuth) defaultClient.getAuthentication("strava_oauth");
 strava_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
 ClubsApi apiInstance = new ClubsApi();
-Integer id = 56; // Integer | The identifier of the club.
+Long id = 789L; // Long | The identifier of the club.
 Integer page = 56; // Integer | Page number. Defaults to 1.
 Integer perPage = 30; // Integer | Number of items per page. Defaults to 30.
 try {
@@ -108,7 +108,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **Integer**| The identifier of the club. |
+ **id** | **Long**| The identifier of the club. |
  **page** | **Integer**| Page number. Defaults to 1. | [optional]
  **perPage** | **Integer**| Number of items per page. Defaults to 30. | [optional] [default to 30]
 
@@ -149,7 +149,7 @@ OAuth strava_oauth = (OAuth) defaultClient.getAuthentication("strava_oauth");
 strava_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
 ClubsApi apiInstance = new ClubsApi();
-Integer id = 56; // Integer | The identifier of the club.
+Long id = 789L; // Long | The identifier of the club.
 try {
     DetailedClub result = apiInstance.getClubById(id);
     System.out.println(result);
@@ -163,7 +163,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **Integer**| The identifier of the club. |
+ **id** | **Long**| The identifier of the club. |
 
 ### Return type
 
@@ -202,7 +202,7 @@ OAuth strava_oauth = (OAuth) defaultClient.getAuthentication("strava_oauth");
 strava_oauth.setAccessToken("YOUR ACCESS TOKEN");
 
 ClubsApi apiInstance = new ClubsApi();
-Integer id = 56; // Integer | The identifier of the club.
+Long id = 789L; // Long | The identifier of the club.
 Integer page = 56; // Integer | Page number. Defaults to 1.
 Integer perPage = 30; // Integer | Number of items per page. Defaults to 30.
 try {
@@ -218,7 +218,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **Integer**| The identifier of the club. |
+ **id** | **Long**| The identifier of the club. |
  **page** | **Integer**| Page number. Defaults to 1. | [optional]
  **perPage** | **Integer**| Number of items per page. Defaults to 30. | [optional] [default to 30]
 

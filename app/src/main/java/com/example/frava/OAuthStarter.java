@@ -101,7 +101,7 @@ public class OAuthStarter extends AppCompatActivity {
                 .appendQueryParameter("redirect_uri", "xcomputer://xcomputer")
                 .appendQueryParameter("response_type", "code")
                 .appendQueryParameter("approval_prompt", "auto")
-                .appendQueryParameter("scope", "profile:read_all,activity:write")
+                .appendQueryParameter("scope", "read_all,profile:read_all,activity:write")
                 .build();
 
         Intent intent = new Intent(Intent.ACTION_VIEW, intentUri);

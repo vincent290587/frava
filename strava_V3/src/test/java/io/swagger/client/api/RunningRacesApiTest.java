@@ -43,7 +43,7 @@ public class RunningRacesApiTest {
      */
     @Test
     public void getRunningRaceByIdTest() throws ApiException {
-        Integer id = null;
+        Long id = null;
         RunningRace response = api.getRunningRaceById(id);
 
         // TODO: test validations

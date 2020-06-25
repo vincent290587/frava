@@ -28,10 +28,10 @@ import java.io.IOException;
 /**
  * DetailedClub
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-31T19:43:52.141+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-06-25T14:36:57.813+02:00")
 public class DetailedClub {
   @SerializedName("id")
-  private Integer id = null;
+  private Long id = null;
 
   @SerializedName("resource_state")
   private Integer resourceState = null;
@@ -185,7 +185,7 @@ public class DetailedClub {
   @SerializedName("following_count")
   private Integer followingCount = null;
 
-  public DetailedClub id(Integer id) {
+  public DetailedClub id(Long id) {
     this.id = id;
     return this;
   }
@@ -195,11 +195,11 @@ public class DetailedClub {
    * @return id
   **/
   @ApiModelProperty(value = "The club's unique identifier.")
-  public Integer getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(Long id) {
     this.id = id;
   }
 

@@ -37,7 +37,7 @@ public class SegmentEffortsApiTest {
     /**
      * List Segment Efforts
      *
-     * Returns a set of the authenticated athlete&#39;s segment efforts for a given segment.
+     * Returns a set of the authenticated athlete&#39;s segment efforts for a given segment.  Requires subscription.
      *
      * @throws ApiException
      *          if the Api call fails

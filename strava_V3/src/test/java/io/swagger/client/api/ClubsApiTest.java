@@ -46,7 +46,7 @@ public class ClubsApiTest {
      */
     @Test
     public void getClubActivitiesByIdTest() throws ApiException {
-        Integer id = null;
+        Long id = null;
         Integer page = null;
         Integer perPage = null;
         List<SummaryActivity> response = api.getClubActivitiesById(id, page, perPage);
@@ -64,7 +64,7 @@ public class ClubsApiTest {
      */
     @Test
     public void getClubAdminsByIdTest() throws ApiException {
-        Integer id = null;
+        Long id = null;
         Integer page = null;
         Integer perPage = null;
         List<SummaryAthlete> response = api.getClubAdminsById(id, page, perPage);
@@ -82,7 +82,7 @@ public class ClubsApiTest {
      */
     @Test
     public void getClubByIdTest() throws ApiException {
-        Integer id = null;
+        Long id = null;
         DetailedClub response = api.getClubById(id);
 
         // TODO: test validations
@@ -98,7 +98,7 @@ public class ClubsApiTest {
      */
     @Test
     public void getClubMembersByIdTest() throws ApiException {
-        Integer id = null;
+        Long id = null;
         Integer page = null;
         Integer perPage = null;
         List<SummaryAthlete> response = api.getClubMembersById(id, page, perPage);

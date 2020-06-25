@@ -1,6 +1,7 @@
 /*
  * Strava API v3
- * 
+ * The [Swagger Playground](https://developers.strava.com/playground) is the easiest way to familiarize yourself with the Strava API by submitting HTTP requests and observing the responses before you write any client code. It will show what a response will look like with different endpoints depending on the authorization scope you receive from your athletes. To use the Playground, go to https://www.strava.com/settings/api and change your “Authorization Callback Domain” to developers.strava.com. Please note, we only support Swagger 2.0. There is a known issue where you can only select one scope at a time. For more information, please check the section “client code” at https://developers.strava.com/docs.
+ *
  * OpenAPI spec version: 3.0.0
  * 
  *
@@ -67,7 +68,7 @@ public class ClubsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call getClubActivitiesByIdCall(Integer id, Integer page, Integer perPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call getClubActivitiesByIdCall(Long id, Integer page, Integer perPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -114,7 +115,7 @@ public class ClubsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getClubActivitiesByIdValidateBeforeCall(Integer id, Integer page, Integer perPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call getClubActivitiesByIdValidateBeforeCall(Long id, Integer page, Integer perPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
         // verify the required parameter 'id' is set
         if (id == null) {
@@ -136,7 +137,7 @@ public class ClubsApi {
      * @return List&lt;SummaryActivity&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public List<SummaryActivity> getClubActivitiesById(Integer id, Integer page, Integer perPage) throws ApiException {
+    public List<SummaryActivity> getClubActivitiesById(Long id, Integer page, Integer perPage) throws ApiException {
         ApiResponse<List<SummaryActivity>> resp = getClubActivitiesByIdWithHttpInfo(id, page, perPage);
         return resp.getData();
     }
@@ -150,7 +151,7 @@ public class ClubsApi {
      * @return ApiResponse&lt;List&lt;SummaryActivity&gt;&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<List<SummaryActivity>> getClubActivitiesByIdWithHttpInfo(Integer id, Integer page, Integer perPage) throws ApiException {
+    public ApiResponse<List<SummaryActivity>> getClubActivitiesByIdWithHttpInfo(Long id, Integer page, Integer perPage) throws ApiException {
         com.squareup.okhttp.Call call = getClubActivitiesByIdValidateBeforeCall(id, page, perPage, null, null);
         Type localVarReturnType = new TypeToken<List<SummaryActivity>>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -166,7 +167,7 @@ public class ClubsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getClubActivitiesByIdAsync(Integer id, Integer page, Integer perPage, final ApiCallback<List<SummaryActivity>> callback) throws ApiException {
+    public com.squareup.okhttp.Call getClubActivitiesByIdAsync(Long id, Integer page, Integer perPage, final ApiCallback<List<SummaryActivity>> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -202,7 +203,7 @@ public class ClubsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call getClubAdminsByIdCall(Integer id, Integer page, Integer perPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call getClubAdminsByIdCall(Long id, Integer page, Integer perPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -249,7 +250,7 @@ public class ClubsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getClubAdminsByIdValidateBeforeCall(Integer id, Integer page, Integer perPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call getClubAdminsByIdValidateBeforeCall(Long id, Integer page, Integer perPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
         // verify the required parameter 'id' is set
         if (id == null) {
@@ -271,7 +272,7 @@ public class ClubsApi {
      * @return List&lt;SummaryAthlete&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public List<SummaryAthlete> getClubAdminsById(Integer id, Integer page, Integer perPage) throws ApiException {
+    public List<SummaryAthlete> getClubAdminsById(Long id, Integer page, Integer perPage) throws ApiException {
         ApiResponse<List<SummaryAthlete>> resp = getClubAdminsByIdWithHttpInfo(id, page, perPage);
         return resp.getData();
     }
@@ -285,7 +286,7 @@ public class ClubsApi {
      * @return ApiResponse&lt;List&lt;SummaryAthlete&gt;&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<List<SummaryAthlete>> getClubAdminsByIdWithHttpInfo(Integer id, Integer page, Integer perPage) throws ApiException {
+    public ApiResponse<List<SummaryAthlete>> getClubAdminsByIdWithHttpInfo(Long id, Integer page, Integer perPage) throws ApiException {
         com.squareup.okhttp.Call call = getClubAdminsByIdValidateBeforeCall(id, page, perPage, null, null);
         Type localVarReturnType = new TypeToken<List<SummaryAthlete>>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -301,7 +302,7 @@ public class ClubsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getClubAdminsByIdAsync(Integer id, Integer page, Integer perPage, final ApiCallback<List<SummaryAthlete>> callback) throws ApiException {
+    public com.squareup.okhttp.Call getClubAdminsByIdAsync(Long id, Integer page, Integer perPage, final ApiCallback<List<SummaryAthlete>> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -335,7 +336,7 @@ public class ClubsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call getClubByIdCall(Integer id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call getClubByIdCall(Long id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -378,7 +379,7 @@ public class ClubsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getClubByIdValidateBeforeCall(Integer id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call getClubByIdValidateBeforeCall(Long id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
         // verify the required parameter 'id' is set
         if (id == null) {
@@ -398,7 +399,7 @@ public class ClubsApi {
      * @return DetailedClub
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public DetailedClub getClubById(Integer id) throws ApiException {
+    public DetailedClub getClubById(Long id) throws ApiException {
         ApiResponse<DetailedClub> resp = getClubByIdWithHttpInfo(id);
         return resp.getData();
     }
@@ -410,7 +411,7 @@ public class ClubsApi {
      * @return ApiResponse&lt;DetailedClub&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<DetailedClub> getClubByIdWithHttpInfo(Integer id) throws ApiException {
+    public ApiResponse<DetailedClub> getClubByIdWithHttpInfo(Long id) throws ApiException {
         com.squareup.okhttp.Call call = getClubByIdValidateBeforeCall(id, null, null);
         Type localVarReturnType = new TypeToken<DetailedClub>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -424,7 +425,7 @@ public class ClubsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getClubByIdAsync(Integer id, final ApiCallback<DetailedClub> callback) throws ApiException {
+    public com.squareup.okhttp.Call getClubByIdAsync(Long id, final ApiCallback<DetailedClub> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -460,7 +461,7 @@ public class ClubsApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call getClubMembersByIdCall(Integer id, Integer page, Integer perPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call getClubMembersByIdCall(Long id, Integer page, Integer perPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -507,7 +508,7 @@ public class ClubsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getClubMembersByIdValidateBeforeCall(Integer id, Integer page, Integer perPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call getClubMembersByIdValidateBeforeCall(Long id, Integer page, Integer perPage, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
         // verify the required parameter 'id' is set
         if (id == null) {
@@ -529,7 +530,7 @@ public class ClubsApi {
      * @return List&lt;SummaryAthlete&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public List<SummaryAthlete> getClubMembersById(Integer id, Integer page, Integer perPage) throws ApiException {
+    public List<SummaryAthlete> getClubMembersById(Long id, Integer page, Integer perPage) throws ApiException {
         ApiResponse<List<SummaryAthlete>> resp = getClubMembersByIdWithHttpInfo(id, page, perPage);
         return resp.getData();
     }
@@ -543,7 +544,7 @@ public class ClubsApi {
      * @return ApiResponse&lt;List&lt;SummaryAthlete&gt;&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<List<SummaryAthlete>> getClubMembersByIdWithHttpInfo(Integer id, Integer page, Integer perPage) throws ApiException {
+    public ApiResponse<List<SummaryAthlete>> getClubMembersByIdWithHttpInfo(Long id, Integer page, Integer perPage) throws ApiException {
         com.squareup.okhttp.Call call = getClubMembersByIdValidateBeforeCall(id, page, perPage, null, null);
         Type localVarReturnType = new TypeToken<List<SummaryAthlete>>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -559,7 +560,7 @@ public class ClubsApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getClubMembersByIdAsync(Integer id, Integer page, Integer perPage, final ApiCallback<List<SummaryAthlete>> callback) throws ApiException {
+    public com.squareup.okhttp.Call getClubMembersByIdAsync(Long id, Integer page, Integer perPage, final ApiCallback<List<SummaryAthlete>> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;

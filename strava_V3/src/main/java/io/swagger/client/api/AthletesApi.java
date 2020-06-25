@@ -1,5 +1,6 @@
 /*
  * Strava API v3
+ * The [Swagger Playground](https://developers.strava.com/playground) is the easiest way to familiarize yourself with the Strava API by submitting HTTP requests and observing the responses before you write any client code. It will show what a response will look like with different endpoints depending on the authorization scope you receive from your athletes. To use the Playground, go to https://www.strava.com/settings/api and change your “Authorization Callback Domain” to developers.strava.com. Please note, we only support Swagger 2.0. There is a known issue where you can only select one scope at a time. For more information, please check the section “client code” at https://developers.strava.com/docs.
  *
  * OpenAPI spec version: 3.0.0
  * 
@@ -290,7 +291,7 @@ public class AthletesApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call getStatsCall(Integer id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call getStatsCall(Long id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -333,7 +334,7 @@ public class AthletesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getStatsValidateBeforeCall(Integer id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call getStatsValidateBeforeCall(Long id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
         // verify the required parameter 'id' is set
         if (id == null) {
@@ -353,7 +354,7 @@ public class AthletesApi {
      * @return ActivityStats
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ActivityStats getStats(Integer id) throws ApiException {
+    public ActivityStats getStats(Long id) throws ApiException {
         ApiResponse<ActivityStats> resp = getStatsWithHttpInfo(id);
         return resp.getData();
     }
@@ -365,7 +366,7 @@ public class AthletesApi {
      * @return ApiResponse&lt;ActivityStats&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<ActivityStats> getStatsWithHttpInfo(Integer id) throws ApiException {
+    public ApiResponse<ActivityStats> getStatsWithHttpInfo(Long id) throws ApiException {
         com.squareup.okhttp.Call call = getStatsValidateBeforeCall(id, null, null);
         Type localVarReturnType = new TypeToken<ActivityStats>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -379,7 +380,7 @@ public class AthletesApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getStatsAsync(Integer id, final ApiCallback<ActivityStats> callback) throws ApiException {
+    public com.squareup.okhttp.Call getStatsAsync(Long id, final ApiCallback<ActivityStats> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;

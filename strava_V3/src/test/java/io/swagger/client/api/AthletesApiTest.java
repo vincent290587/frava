@@ -75,7 +75,7 @@ public class AthletesApiTest {
      */
     @Test
     public void getStatsTest() throws ApiException {
-        Integer id = null;
+        Long id = null;
         ActivityStats response = api.getStats(id);
 
         // TODO: test validations

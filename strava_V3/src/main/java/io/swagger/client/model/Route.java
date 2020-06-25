@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * Route
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-05-31T19:43:52.141+02:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-06-25T14:36:57.813+02:00")
 public class Route {
   @SerializedName("athlete")
   private SummaryAthlete athlete = null;
@@ -47,7 +47,10 @@ public class Route {
   private Float elevationGain = null;
 
   @SerializedName("id")
-  private Integer id = null;
+  private Long id = null;
+
+  @SerializedName("id_str")
+  private String idStr = null;
 
   @SerializedName("map")
   private PolylineMap map = null;
@@ -145,7 +148,7 @@ public class Route {
     this.elevationGain = elevationGain;
   }
 
-  public Route id(Integer id) {
+  public Route id(Long id) {
     this.id = id;
     return this;
   }
@@ -155,12 +158,30 @@ public class Route {
    * @return id
   **/
   @ApiModelProperty(value = "The unique identifier of this route")
-  public Integer getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(Long id) {
     this.id = id;
+  }
+
+  public Route idStr(String idStr) {
+    this.idStr = idStr;
+    return this;
+  }
+
+   /**
+   * The unique identifier of the route in string format
+   * @return idStr
+  **/
+  @ApiModelProperty(value = "The unique identifier of the route in string format")
+  public String getIdStr() {
+    return idStr;
+  }
+
+  public void setIdStr(String idStr) {
+    this.idStr = idStr;
   }
 
   public Route map(PolylineMap map) {
@@ -330,6 +351,7 @@ public class Route {
         Objects.equals(this.distance, route.distance) &&
         Objects.equals(this.elevationGain, route.elevationGain) &&
         Objects.equals(this.id, route.id) &&
+        Objects.equals(this.idStr, route.idStr) &&
         Objects.equals(this.map, route.map) &&
         Objects.equals(this.name, route.name) &&
         Objects.equals(this._private, route._private) &&
@@ -342,7 +364,7 @@ public class Route {
 
   @Override
   public int hashCode() {
-    return Objects.hash(athlete, description, distance, elevationGain, id, map, name, _private, starred, timestamp, type, subType, segments);
+    return Objects.hash(athlete, description, distance, elevationGain, id, idStr, map, name, _private, starred, timestamp, type, subType, segments);
   }
 
 
@@ -356,6 +378,7 @@ public class Route {
     sb.append("    distance: ").append(toIndentedString(distance)).append("\n");
     sb.append("    elevationGain: ").append(toIndentedString(elevationGain)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    idStr: ").append(toIndentedString(idStr)).append("\n");
     sb.append("    map: ").append(toIndentedString(map)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    _private: ").append(toIndentedString(_private)).append("\n");
