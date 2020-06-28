@@ -36,7 +36,7 @@ public class BluetoothLeService extends Service implements LeCallbacks {
         Log.d(TAG, "onChanged connection state " + state.toString());
         if (state.isConnected()) {
             stopScan();
-        } else {
+        } else if (state.getState().equals(ConnectionState.State.DISCONNECTED)) {
             device = null;
             startScan();
         }
@@ -250,6 +250,8 @@ public class BluetoothLeService extends Service implements LeCallbacks {
 
         if (bleManager != null && isConnected()) {
             bleManager.send(data);
+        } else {
+            Log.e(TAG, "Send impossible " + isConnected());
         }
     }
 
@@ -258,6 +260,8 @@ public class BluetoothLeService extends Service implements LeCallbacks {
 
         if (bleManager != null && isConnected()) {
             bleManager.sendList(l_data);
+        } else {
+            Log.e(TAG, "Send impossible " + isConnected());
         }
     }
 }

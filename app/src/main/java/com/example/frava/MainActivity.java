@@ -96,8 +96,12 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         stravaViewModel.m_route_to_send.observe(this, new Observer<Route>() {
             @Override
             public void onChanged(Route route) {
+                Log.i(TAG, "Route to send queued");
                 if (gps_handler != null) {
+                    Log.i(TAG, "Route to send sending...");
                     gps_handler.sendRoute(route, ble_service);
+                } else {
+                    Log.e(TAG, "Route to send failed");
                 }
             }
         });

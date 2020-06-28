@@ -36,7 +36,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.swagger.client.model.Route;
-import no.nordicsemi.android.ble.livedata.state.ConnectionState;
 
 public class HomeFragment extends Fragment {
 

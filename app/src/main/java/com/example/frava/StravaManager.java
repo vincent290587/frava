@@ -40,6 +40,8 @@ public class StravaManager extends ViewModel {
     public void prepareRoute(int position) {
         if (m_routes_list.getValue() != null) {
             m_route_to_send.postValue(m_routes_list.getValue().get(position));
+        } else {
+            Log.e(TAG, "value null");
         }
     }
 

@@ -156,6 +156,8 @@ public class GpsHandler extends Service {
                 // send the data
                 if (interf != null) {
                     interf.onListDataSend(l_data);
+                } else {
+                    Log.e(TAG, "No BLE handler");
                 }
                 return;
             }
